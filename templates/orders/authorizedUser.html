@@ -1,0 +1,167 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<div class="row mx-4 mt-5" style="padding-top: 75px;">
+
+    <div class="col-md-6">
+        <div class="row mb-5">
+
+            {% if user.is_authenticated %}
+                <div class="col-md-6">
+                    <!-- Takvim -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>
+                                <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                                Tarihe göre arama
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <form action= "{% url 'searchdate' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="date" name="appointmentdate" class="form-control" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-info btn-block">Ara</button>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            
+            <div class="col-md-6">
+                <!-- Search -->  
+                <div class="card">
+                    <div class="card-header">
+                        <h5>
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            Arama
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url 'search' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" name="username" class="form-control" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-info btn-block">Ara</button>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {%endif%}
+        </div>
+        <div class="row">
+
+            
+            <button class="btn btn-block border", type="button">
+                <h2 class="text-center">Randevulu</h2>
+            </button>
+            
+            
+            {% if orders %}
+                <table class="table table-bordered">    
+                
+                    <thead>
+                        <tr style="font-size: 15px;">
+                            <th>İSİM</th>
+                            <th>KOLİ SAYISI</th>
+                            <th>RANDEVU TARİHİ</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    {% for orderr in orders %}
+                    <tbody>
+                        {%if orderr.appointmentdate != Null%}    
+                            {% if orderr.remainingday > 0 %}
+                                <tr>
+                                    <td>
+                                        {{orderr.name}}
+                                    </td>
+                                    <td>
+                                        {{orderr.numofproduct}}
+                                    </td>
+                                    <td>
+                                        {{orderr.appointmentdate}}
+                                    </td> 
+                                    <td>
+                                        <button class="btn btn-outline-danger btn-actions" data-toggle="modal" data-target="#deleteApp{{orderr.id}}" >randevu sil</button> 
+                                    </td>  
+                                </tr> 
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+             
+            {% else %}
+                <div class="alert alert-warning">
+                    <p class="text-center">
+                        no orders
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+        
+    </div>   
+    
+    
+
+    <div class="col-md-6">
+        <button class="btn btn-block border", type="button">
+            <h2 class="text-center">Randevusuz</h2>
+        </button>
+    
+        <table class="table table-bordered">    
+            <thead>
+                <tr>
+                    <th scope="col">İSİM</th>
+                    <th scope="col">KOLİ SAYISI</th>
+                    <th scope="col">RESİM TARİHİ</th>
+                    <th scope="col">KURUMA GÜNÜ</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if orders %}
+                    {% for orderr in orders %}
+                        {%if orderr.appointmentdate == Null%}
+                            <tr>
+                                <td>
+                                    {{orderr.name}}
+                                </td>
+                                <td>
+                                    {{orderr.numofproduct}}
+                                </td>
+                                <td>
+                                    {{orderr.startingdate}}
+                                </td> 
+                                <td>
+                                    {{orderr.daycount}}
+                                </td>
+                                <td>
+                                    {% if orderr.daycount > 89 %}
+                                        <a href=""  class="btn btn-outline-success btn-actions" data-toggle="modal" data-target="#addApp{{orderr.id}}" >
+                                            randevu al
+                                        </a>
+                                        {% else %}
+                                        <a type="button" class="btn btn-outline-success disabled" aria-disabled="true" >
+                                            randevu al
+                                        </a>
+                                    {% endif %}
+                                </td>  
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>   
+    </div>  
+
+</div>
+{% endblock %}

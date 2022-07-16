@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+    
+    <div class="container" style="padding-top: 100px ;">
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class=" mt-5 mb-5">
+                    <button   class="btn bg-danger btn-block mt-5" type="button">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'teslim' user.id %}" method="POST" class="text-white">
+                                ÜRÜN TESLİM RANDEVUSU AL
+                            </a>
+                        {% else %}
+                            <a href="{% url 'login' %}" method="POST" class="text-white">
+                                ÜRÜN TESLİM RANDEVUSU AL
+                            </a>
+                        {% endif %}    
+                    </button>
+                    <button class="btn btn-secondary btn-block mt-5" type="button">ÜRÜN ALIM RANDEVUSU AL</button>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <br><br>
+                {% if user.is_authenticated %}
+                <p>
+                    {{user.name}} Deterjan Pazarı randevu sayfasına hoşgeldiniz. Ürün teslim ve alım randevularınızı online olarak bu web sitesi üzerinden alabilir ve bir takım işlemler yapabilirsiniz.
+                </p>
+                {% else %}
+                <p>
+                    Deterjan Pazarı randevu sayfasına hoşgeldiniz. Ürün teslim ve alım randevularınızı online olarak bu web sitesi üzerinden yapabilirsiniz. 
+                    Randevu almak için <a href="{% url 'login' %}"> giriş yapın </a>.
+                </p>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock%}

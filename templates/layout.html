@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <script src="https://kit.fontawesome.com/355437cfd5.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" 
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" 
+    crossorigin="anonymous"> 
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.scss' %}">
+    
+
+    <title>DeterjanPazarı</title>
+    
+    <style>
+        
+    </style>
+</head>
+<body >  
+
+    {% include 'partials/_navbar.html' %}
+    {% include 'partials/_addAppointment.html' %}
+    {% include 'partials/_detailAppointment.html' %}
+    {% include 'partials/_deleteAppointment.html' %}
+
+    <main>
+
+        {% include 'partials/_alert.html' %}
+        {% block content %}
+        {% endblock %}
+  
+        
+    </main>
+
+    
+
+    
+
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+</body>
+
+</html>
